@@ -12,3 +12,8 @@ gem "puma", "~> 6.4.0"
 gem "rails", "~> 7.1.2"
 
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+
+gem "rack-cors", "~> 2.0.1"
+
+gem 'devise'
+gem 'devise_token_auth'
