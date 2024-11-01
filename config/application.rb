@@ -29,5 +29,7 @@ module App
     # Skip views, helpers and assets when generating a new resource.
     config.hosts << "flully-back.onrender.com"
     config.api_only = true
+    config.time_zone = 'Asia/Tokyo'
+    config.active_record.default_timezone = :local
   end
 end
