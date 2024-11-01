@@ -18,4 +18,5 @@ gem "rack-cors", "~> 2.0.1"
 gem 'devise'
 gem 'devise_token_auth'
 
-gem 'google-cloud-storage'
+gem 'carrierwave', '~> 2.0'
+gem 'mini_magick'
