@@ -10,5 +10,4 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :walks, dependent: :destroy
-  # has_one_attached :avatar
 end
