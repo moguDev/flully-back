@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations'
       }
-      
+
       resources :walks, only: %i[create update destroy] do
         get 'in_progress', on: :collection
         collection do
@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       get 'users/check_name', to: 'users#check_name'
 
       resources :checkpoints, only: [:create]
+
+      resources :posts, only: [:create]
     end
   end
 end
