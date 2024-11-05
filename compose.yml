@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: flully_db
+    container_name: flully_postgres
     image: postgres
     # platform: linux/arm64/v8
     volumes:
