@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  walk: one
+  image: MyString
+  body: MyText
+  lat: 1.5
+  lng: 1.5
+  is_anonymous: false
+
+two:
+  user: two
+  walk: two
+  image: MyString
+  body: MyText
+  lat: 1.5
+  lng: 1.5
+  is_anonymous: false
