@@ -16,7 +16,6 @@ CarrierWave.configure do |config|
       path_style: true
     }
   else
-    config.asset_host = "http://localhost:3000"
     config.storage :file
     config.enable_processing = false if Rails.env.test?
   end
