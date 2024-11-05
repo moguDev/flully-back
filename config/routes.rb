@@ -19,11 +19,15 @@ Rails.application.routes.draw do
 
       resources :checkpoints, only: [:create]
 
-      resources :posts, only: [:create] do
+      resources :posts, only: [:show, :create] do
         collection do
           get :nearby_posts
         end
       end
+
+      post "posts/:id/likes", to: "likes#create"
+      delete "posts/:id/likes", to: "likes#destroy"
+      get "posts/:id/is_user_liked", to: "posts#is_user_liked"
     end
   end
 end
