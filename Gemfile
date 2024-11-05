@@ -19,7 +19,7 @@ gem 'devise'
 gem 'devise_token_auth'
 
 gem 'carrierwave'
-gem 'fog-google'
+gem 'fog-aws'
 
 gem 'dotenv-rails'
 
