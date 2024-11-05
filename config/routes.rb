@@ -19,7 +19,11 @@ Rails.application.routes.draw do
 
       resources :checkpoints, only: [:create]
 
-      resources :posts, only: [:create]
+      resources :posts, only: [:create] do
+        collection do
+          get :nearby_posts
+        end
+      end
     end
   end
 end

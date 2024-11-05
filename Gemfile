@@ -20,4 +20,7 @@ gem 'devise_token_auth'
 
 gem 'carrierwave'
 gem 'fog-google'
+
 gem 'dotenv-rails'
+
+gem 'geocoder'

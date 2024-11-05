@@ -1,6 +1,33 @@
 class Api::V1::PostsController < ApplicationController
   before_action :authenticate_api_v1_user!
 
+  def nearby_posts
+    lat = params[:lat].to_f
+    lng = params[:lng].to_f
+    radius = 10
+
+    # 距離検索を行い、ユーザー情報と共に投稿データを整形
+    posts = Post.near([lat, lng], radius, units: :km).includes(:user).map do |post|
+      {
+        id: post.id,
+        body: post.body,
+        lat: post.lat,
+        lng: post.lng,
+        is_anonymous: post.is_anonymous,
+        image_url: post.image.url,
+        created_at: post.created_at,
+        user: post.is_anonymous ? nil : {
+          id: post.user.id,
+          name: post.user.name,
+          nickname: post.user.nickname,
+          avatar_url: post.user.avatar.url
+        }
+      }
+    end
+
+    render json: { posts: posts }, status: :ok
+  end
+
   def create
     # 現在の散歩があるか確認 (finish_timeがnilのものが散歩中)
     current_walk = current_api_v1_user.walks.find_by(finish_time: nil)
