@@ -6,26 +6,9 @@ class Api::V1::PostsController < ApplicationController
     lng = params[:lng].to_f
     radius = 10
 
-    # 距離検索を行い、ユーザー情報と共に投稿データを整形
-    posts = Post.near([lat, lng], radius, units: :km).includes(:user).map do |post|
-      {
-        id: post.id,
-        body: post.body,
-        lat: post.lat,
-        lng: post.lng,
-        is_anonymous: post.is_anonymous,
-        image_url: post.image.url,
-        created_at: post.created_at,
-        user: post.is_anonymous ? nil : {
-          id: post.user.id,
-          name: post.user.name,
-          nickname: post.user.nickname,
-          avatar_url: post.user.avatar.url
-        }
-      }
-    end
+    posts = Post.near([lat, lng], radius, units: :km).includes(:user)
 
-    render json: { posts: posts }, status: :ok
+    render json: posts, each_serializer: PostSerializer, status: :ok
   end
 
   def create

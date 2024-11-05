@@ -3,6 +3,6 @@ class Post < ApplicationRecord
   reverse_geocoded_by :lat, :lng
   belongs_to :user
   belongs_to :walk, optional: true
-  has_many :like, dependent: :destroy
-  has_many :post_comment, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
 end
