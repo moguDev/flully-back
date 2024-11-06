@@ -20,6 +20,7 @@ gem 'devise_token_auth'
 
 gem 'carrierwave'
 gem 'fog-aws'
+gem 'mini_magick'
 
 gem 'dotenv-rails'
 
