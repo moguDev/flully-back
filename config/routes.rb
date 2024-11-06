@@ -25,6 +25,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :post_comments, only: [:index, :create]
+
       post "posts/:id/likes", to: "likes#create"
       delete "posts/:id/likes", to: "likes#destroy"
       get "posts/:id/is_user_liked", to: "posts#is_user_liked"
