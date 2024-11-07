@@ -10,9 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_05_044448) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_07_074617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "board_images", force: :cascade do |t|
+    t.bigint "board_id", null: false
+    t.string "image", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_images_on_board_id"
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "category"
+    t.integer "species"
+    t.string "name"
+    t.string "icon"
+    t.integer "age"
+    t.datetime "date"
+    t.float "lat"
+    t.float "lng"
+    t.boolean "is_location_public"
+    t.text "body"
+    t.text "feature"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "breed"
+    t.index ["user_id"], name: "index_boards_on_user_id"
+  end
 
   create_table "checkpoints", force: :cascade do |t|
     t.bigint "walk_id", null: false
@@ -94,6 +122,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_044448) do
     t.index ["user_id"], name: "index_walks_on_user_id"
   end
 
+  add_foreign_key "board_images", "boards"
+  add_foreign_key "boards", "users"
   add_foreign_key "checkpoints", "walks"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"

@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  category: 1
+  species: MyString
+  name: MyString
+  image: MyString
+  age: 1
+  date: 2024-11-07 02:14:17
+  lat: 1.5
+  lng: 1.5
+  is_location_public: false
+  body: MyText
+  feature: MyText
+  status: 1
+  created_at: 2024-11-07 02:14:17
+  updated_at: 2024-11-07 02:14:17
+
+two:
+  user: two
+  category: 1
+  species: MyString
+  name: MyString
+  image: MyString
+  age: 1
+  date: 2024-11-07 02:14:17
+  lat: 1.5
+  lng: 1.5
+  is_location_public: false
+  body: MyText
+  feature: MyText
+  status: 1
+  created_at: 2024-11-07 02:14:17
+  updated_at: 2024-11-07 02:14:17
