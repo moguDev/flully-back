@@ -1,5 +1,5 @@
 class Api::V1::BoardsController < ApplicationController
-  before_action :set_user, only: [:create]
+  before_action :set_user
   before_action :authenticate_api_v1_user!, only: %i[create]
 
   def index
@@ -30,6 +30,11 @@ def create
   else
     render json: { errors: board.errors.full_messages }, status: :unprocessable_entity
   end
+end
+
+def is_user_bookmarked
+  is_bookmarked = @user.bookmarks.exists?(board_id: params[:id])
+  render json: { is_bookmarked: is_bookmarked }
 end
 
   private
