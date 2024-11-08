@@ -27,9 +27,15 @@ Rails.application.routes.draw do
 
       resources :post_comments, only: [:index, :create]
 
+      resources :boards, only: [:index, :show, :create]
+
       post "posts/:id/likes", to: "likes#create"
       delete "posts/:id/likes", to: "likes#destroy"
       get "posts/:id/is_user_liked", to: "posts#is_user_liked"
+
+      post "boards/:id/bookmarks", to: "bookmarks#create"
+      delete "boards/:id/bookmarks", to: "bookmarks#destroy"
+      get "boards/:id/is_user_bookmarked", to: "boards#is_user_bookmarked"
     end
   end
 end

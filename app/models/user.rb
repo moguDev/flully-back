@@ -11,4 +11,6 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :boards, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
 end
