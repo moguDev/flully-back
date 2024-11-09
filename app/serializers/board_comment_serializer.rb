@@ -1,5 +1,9 @@
 class BoardCommentSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :board_id, :content_type, :content
+  attributes :id, :user, :board_id, :content_type, :content, :created_at
+
+  def user
+    UserSerializer.new(object.user)
+  end
 
   def content
     content_type_class = object.content_type.constantize
@@ -28,6 +32,15 @@ class BoardCommentSerializer < ActiveModel::Serializer
       "location"
     else
       nil
+    end
+  end
+
+  def created_at
+    local_time = object.created_at.in_time_zone("Asia/Tokyo")
+    if local_time.to_date == Date.today
+      "今日 #{local_time.strftime('%H:%M')}"
+    else
+      local_time.strftime('%m月%d日 %H:%M')
     end
   end
 end
