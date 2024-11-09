@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_08_063021) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_09_051300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "board_comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "board_id", null: false
+    t.string "content_type"
+    t.integer "content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_comments_on_board_id"
+    t.index ["user_id"], name: "index_board_comments_on_user_id"
+  end
 
   create_table "board_images", force: :cascade do |t|
     t.bigint "board_id", null: false
@@ -94,6 +105,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_08_063021) do
     t.index ["walk_id"], name: "index_posts_on_walk_id"
   end
 
+  create_table "thread_comment_image_contents", force: :cascade do |t|
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "thread_comment_location_contents", force: :cascade do |t|
+    t.float "lat"
+    t.float "lng"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "thread_comment_text_contents", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -132,6 +162,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_08_063021) do
     t.index ["user_id"], name: "index_walks_on_user_id"
   end
 
+  add_foreign_key "board_comments", "boards"
+  add_foreign_key "board_comments", "users"
   add_foreign_key "board_images", "boards"
   add_foreign_key "boards", "users"
   add_foreign_key "bookmarks", "boards"

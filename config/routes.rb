@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       post "boards/:id/bookmarks", to: "bookmarks#create"
       delete "boards/:id/bookmarks", to: "bookmarks#destroy"
       get "boards/:id/is_user_bookmarked", to: "boards#is_user_bookmarked"
+
+      resources :board_comments, only: [:create, :index]
     end
   end
 end
