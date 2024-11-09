@@ -1,5 +1,5 @@
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id, :category, :species, :status, :name, :icon_url, :age, :date, :lat, :lng, :location, :is_location_public, :body, :feature, :created_at, :updated_at, :breed, :user, :bookmark_count
+  attributes :id, :category, :species, :status, :name, :icon_url, :age, :date, :lat, :lng, :location, :is_location_public, :body, :feature, :created_at, :updated_at, :breed, :user, :bookmark_count, :images
 
   # iconをicon_urlに変換
   def icon_url
@@ -8,7 +8,7 @@ class BoardSerializer < ActiveModel::Serializer
 
   # user_idをuser情報として返す
   def user
-    UserSerializer.new(object.user) # UserSerializerを使用して、user情報をラップ
+    UserSerializer.new(object.user)
   end
 
   # categoryを日本語に変換して返す
@@ -63,5 +63,10 @@ class BoardSerializer < ActiveModel::Serializer
   # bookmark_countを返す
   def bookmark_count
     object.bookmarks.count
+  end
+
+  # imagesを返す
+  def images
+    object.board_images.map { |board_image| board_image.image.url }
   end
 end
