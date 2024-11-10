@@ -23,10 +23,8 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    # 現在の散歩があるか確認 (finish_timeがnilのものが散歩中)
     current_walk = current_api_v1_user.walks.find_by(finish_time: nil)
 
-    # 散歩中ならwalk_idを設定し、そうでなければnilを設定
     post = current_api_v1_user.posts.new(
       post_params.merge(walk_id: current_walk&.id)
     )

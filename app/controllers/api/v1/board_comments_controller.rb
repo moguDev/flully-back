@@ -17,7 +17,6 @@ class Api::V1::BoardCommentsController < ApplicationController
     when "ThreadCommentTextContent"
       comment_content = ThreadCommentTextContent.create!(body: content)
     when "ThreadCommentImageContent"
-      # CarrierWave で画像をアップロード
       uploaded_image = ThreadCommentImageContent.new(url: content)
       uploaded_image.save!
       comment_content = uploaded_image
