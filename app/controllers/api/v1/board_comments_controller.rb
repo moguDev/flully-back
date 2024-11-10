@@ -17,7 +17,10 @@ class Api::V1::BoardCommentsController < ApplicationController
     when "ThreadCommentTextContent"
       comment_content = ThreadCommentTextContent.create!(body: content)
     when "ThreadCommentImageContent"
-      comment_content = ThreadCommentImageContent.create!(url: content)
+      # CarrierWave で画像をアップロード
+      uploaded_image = ThreadCommentImageContent.new(url: content)
+      uploaded_image.save!
+      comment_content = uploaded_image
     when "ThreadCommentLocationContent"
       lat = params[:lat]
       lng = params[:lng]
@@ -44,12 +47,10 @@ class Api::V1::BoardCommentsController < ApplicationController
   end
 
   def determine_content_type(content)
-    if content.is_a?(String)
-      if content.match?(/\.(jpg|jpeg|png|gif|bmp)$/i)
-        ThreadCommentImageContent
-      else
-        ThreadCommentTextContent
-      end
+    if content.is_a?(ActionDispatch::Http::UploadedFile)
+      ThreadCommentImageContent
+    elsif content.is_a?(String)
+      ThreadCommentTextContent
     elsif params[:lat].present? && params[:lng].present?
       ThreadCommentLocationContent
     else

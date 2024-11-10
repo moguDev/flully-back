@@ -12,7 +12,7 @@ class BoardCommentSerializer < ActiveModel::Serializer
     when "ThreadCommentTextContent"
       content_type_class.find(object.content_id).body
     when "ThreadCommentImageContent"
-      content_type_class.find(object.content_id).url
+      content_type_class.find(object.content_id).url.url
     when "ThreadCommentLocationContent"
       content_type_class.find(object.content_id).slice(:lat, :lng)
     else
