@@ -1,6 +1,11 @@
 class Api::V1::WalksController < ApplicationController
-  before_action :authenticate_api_v1_user!, only: %i[start finish destroy in_progress]
-  before_action :set_user, only: %i[start finish in_progress]
+  before_action :authenticate_api_v1_user!, only: %i[index start finish destroy in_progress]
+  before_action :set_user, only: %i[index start finish in_progress]
+
+  def index
+    walks = @user.walks
+    render json: walks
+  end
 
   def start
     if @user.walks.exists?(finish_time: nil)
