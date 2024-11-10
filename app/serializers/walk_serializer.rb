@@ -1,5 +1,7 @@
 class WalkSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :start_time, :finish_time, :checkpoints, :total_distance
+  attributes :id, :user_id, :start_time, :finish_time, :checkpoints, :total_distance, :created_at
+
+  has_many :posts, each_serializer: PostSerializer
 
   def checkpoints
     object.checkpoints
@@ -7,6 +9,10 @@ class WalkSerializer < ActiveModel::Serializer
 
   def total_distance
     calculate_total_distance(object.checkpoints)
+  end
+
+  def created_at
+    object.created_at.strftime("%Y年%m月%d日")
   end
 
   private

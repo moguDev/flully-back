@@ -6,7 +6,7 @@ Rails.application.routes.draw do
         registrations: 'api/v1/auth/registrations'
       }
 
-      resources :walks, only: %i[create update destroy] do
+      resources :walks, only: %i[index destroy] do
         get 'in_progress', on: :collection
         collection do
           post :start
