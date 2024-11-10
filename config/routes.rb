@@ -27,7 +27,11 @@ Rails.application.routes.draw do
 
       resources :post_comments, only: [:index, :create]
 
-      resources :boards, only: [:index, :show, :create]
+      resources :boards, only: [:index, :show, :create] do
+        collection do
+          get :nearby_boards
+        end
+      end
 
       post "posts/:id/likes", to: "likes#create"
       delete "posts/:id/likes", to: "likes#destroy"

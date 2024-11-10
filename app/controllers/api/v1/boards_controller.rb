@@ -12,30 +12,40 @@ class Api::V1::BoardsController < ApplicationController
     render json: board
   end
 
-def create
-  board_params_with_int = board_params.merge(
-    category: params[:category].to_i,
-    species: params[:species].to_i
-  )
-  
-  board = @user.boards.new(board_params_with_int.merge(status: :unresolved))
+  def nearby_boards
+    lat = params[:lat].to_f
+    lng = params[:lng].to_f
+    radius = 10
 
-  if board.save
-    if params[:images]
-      params[:images].each do |image|
-        board.board_images.create(image: image)
-      end
-    end
-    render json: board, status: :created
-  else
-    render json: { errors: board.errors.full_messages }, status: :unprocessable_entity
+    boards = Board.near([lat, lng], radius, units: :km).includes(:user)
+
+    render json: boards, each_serializer: BoardSerializer, status: :ok
   end
-end
 
-def is_user_bookmarked
-  is_bookmarked = @user.bookmarks.exists?(board_id: params[:id])
-  render json: { is_bookmarked: is_bookmarked }
-end
+  def create
+    board_params_with_int = board_params.merge(
+      category: params[:category].to_i,
+      species: params[:species].to_i
+    )
+
+    board = @user.boards.new(board_params_with_int.merge(status: :unresolved))
+
+    if board.save
+      if params[:images]
+        params[:images].each do |image|
+          board.board_images.create(image: image)
+        end
+      end
+      render json: board, status: :created
+    else
+      render json: { errors: board.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def is_user_bookmarked
+    is_bookmarked = @user.bookmarks.exists?(board_id: params[:id])
+    render json: { is_bookmarked: is_bookmarked }
+  end
 
   private
 
