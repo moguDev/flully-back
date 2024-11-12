@@ -1,5 +1,5 @@
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id, :category, :species, :status, :name, :icon_url, :age, :date, :lat, :lng, :location, :is_location_public, :body, :feature, :created_at, :updated_at, :breed, :user, :bookmark_count, :images
+  attributes :id, :category, :species, :status, :name, :icon_url, :age, :formated_date, :date, :lat, :lng, :location, :is_location_public, :body, :feature, :created_at, :updated_at, :breed, :user, :bookmark_count, :images
 
   # iconをicon_urlに変換
   def icon_url
@@ -56,7 +56,7 @@ class BoardSerializer < ActiveModel::Serializer
   end
 
   # dateをyyyy年mm月dd日 hh:mm形式で返却
-  def date
+  def formated_date
     object.date.strftime("%Y年%m月%d日 %H:%M") if object.date.present?
   end
 

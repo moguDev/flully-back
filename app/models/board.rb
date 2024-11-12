@@ -24,7 +24,7 @@ class Board < ApplicationRecord
     when 'maigo'
       '迷子'
     when 'hogosha'
-      '保護者'
+      '保護'
     when 'mokugeki'
       '目撃'
     else
