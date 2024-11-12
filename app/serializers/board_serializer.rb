@@ -65,8 +65,10 @@ class BoardSerializer < ActiveModel::Serializer
     object.bookmarks.count
   end
 
-  # imagesを返す
+  # imagesを{id: number, url: string}形式で返す
   def images
-    object.board_images.map { |board_image| board_image.image.url }
+    object.board_images.map do |board_image|
+      { id: board_image.id, url: board_image.image.url }
+    end
   end
 end

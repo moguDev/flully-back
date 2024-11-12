@@ -51,9 +51,16 @@ class Api::V1::BoardsController < ApplicationController
 
       if @board.update(board_params_with_int)
         if params[:images]
-          @board.board_images.destroy_all
           params[:images].each do |image|
             @board.board_images.create(image: image)
+          end
+        end
+        if params[:remove_image_id].present?
+          image_ids = params[:remove_image_id].split(',').map(&:to_i)
+
+          image_ids.each do |image_id|
+            board_image = @board.board_images.find_by(id: image_id)
+            board_image&.destroy if board_image
           end
         end
         render json: @board, status: :ok
@@ -63,11 +70,6 @@ class Api::V1::BoardsController < ApplicationController
     else
       render json: { error: 'You are not authorized to update this board.' }, status: :forbidden
     end
-  end
-
-  def is_user_bookmarked
-    is_bookmarked = @user.bookmarks.exists?(board_id: params[:id])
-    render json: { is_bookmarked: is_bookmarked }
   end
 
   private
