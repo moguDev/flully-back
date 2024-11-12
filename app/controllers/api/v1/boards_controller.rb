@@ -1,6 +1,7 @@
 class Api::V1::BoardsController < ApplicationController
   before_action :set_user
-  before_action :authenticate_api_v1_user!, only: %i[create]
+  before_action :authenticate_api_v1_user!, only: %i[create update]
+  before_action :set_board, only: %i[show update]
 
   def index
     boards = Board.all
@@ -8,8 +9,7 @@ class Api::V1::BoardsController < ApplicationController
   end
 
   def show
-    board = Board.find(params[:id])
-    render json: board
+    render json: @board
   end
 
   def nearby_boards
@@ -42,6 +42,29 @@ class Api::V1::BoardsController < ApplicationController
     end
   end
 
+  def update
+    if @board.user_id == @user.id
+      board_params_with_int = board_params.merge(
+        category: params[:category].to_i,
+        species: params[:species].to_i
+      )
+
+      if @board.update(board_params_with_int)
+        if params[:images]
+          @board.board_images.destroy_all
+          params[:images].each do |image|
+            @board.board_images.create(image: image)
+          end
+        end
+        render json: @board, status: :ok
+      else
+        render json: { errors: @board.errors.full_messages }, status: :unprocessable_entity
+      end
+    else
+      render json: { error: 'You are not authorized to update this board.' }, status: :forbidden
+    end
+  end
+
   def is_user_bookmarked
     is_bookmarked = @user.bookmarks.exists?(board_id: params[:id])
     render json: { is_bookmarked: is_bookmarked }
@@ -51,6 +74,10 @@ class Api::V1::BoardsController < ApplicationController
 
   def set_user
     @user = current_api_v1_user
+  end
+
+  def set_board
+    @board = Board.find(params[:id])
   end
 
   def board_params

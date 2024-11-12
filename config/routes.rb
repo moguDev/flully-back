@@ -6,7 +6,7 @@ Rails.application.routes.draw do
         registrations: 'api/v1/auth/registrations'
       }
 
-      resources :walks, only: %i[index destroy] do
+      resources :walks, only: %i[index show destroy] do
         get 'in_progress', on: :collection
         collection do
           post :start
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
       resources :post_comments, only: [:index, :create]
 
-      resources :boards, only: [:index, :show, :create] do
+      resources :boards, only: [:index, :show, :create, :update] do
         collection do
           get :nearby_boards
         end

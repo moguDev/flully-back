@@ -1,10 +1,19 @@
 class Api::V1::WalksController < ApplicationController
-  before_action :authenticate_api_v1_user!, only: %i[index start finish destroy in_progress]
-  before_action :set_user, only: %i[index start finish in_progress]
+  before_action :authenticate_api_v1_user!
+  before_action :set_user
 
   def index
     walks = @user.walks
     render json: walks
+  end
+
+  def show
+    walk = @user.walks.find(params[:id])
+    if walk
+      render json: walk, status: :ok
+    else
+      render json: { error: 'Walk not found' }, status: :not_found
+    end
   end
 
   def start
