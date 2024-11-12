@@ -72,6 +72,20 @@ class Api::V1::BoardsController < ApplicationController
     end
   end
 
+  def search
+    keywords = params[:keyword].to_s.strip.split(/\s+/)
+    
+    boards = Board.all
+    keywords.each do |word|
+      boards = boards.where(
+        "name LIKE :word OR body LIKE :word OR breed LIKE :word OR feature LIKE :word OR location LIKE :word",
+        word: "%#{word}%"
+      )
+    end
+    
+    render json: boards, each_serializer: BoardSerializer, status: :ok
+  end
+
   private
 
   def set_user

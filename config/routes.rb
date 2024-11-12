@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :boards, only: [:index, :show, :create, :update] do
         collection do
           get :nearby_boards
+          get :search
         end
       end
 
