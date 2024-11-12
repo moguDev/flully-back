@@ -42,7 +42,8 @@ class Api::V1::WalksController < ApplicationController
   def in_progress
     walk = @user.walks.find_by(finish_time: nil)
     if walk
-      render json: { in_progress: true, walk: walk }, status: :ok
+      checkpoints = walk.checkpoints
+      render json: { in_progress: true, walk: walk, checkpoints: checkpoints }, status: :ok
     else
       render json: { in_progress: false }, status: :ok
     end
