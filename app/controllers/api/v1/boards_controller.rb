@@ -1,7 +1,7 @@
 class Api::V1::BoardsController < ApplicationController
   before_action :set_user
-  before_action :authenticate_api_v1_user!, only: %i[create update]
-  before_action :set_board, only: %i[show update]
+  before_action :authenticate_api_v1_user!, only: %i[create update destroy]
+  before_action :set_board, only: %i[show update destroy]
 
   def index
     boards = Board.all
@@ -72,6 +72,15 @@ class Api::V1::BoardsController < ApplicationController
     end
   end
 
+  def destroy
+    if @board
+      @board.destroy
+      render json: { message: "Board deleted successfully" }, status: :ok
+    else
+      render json: { error: "Board not found or not authorized to delete" }, status: :not_found
+    end
+  end
+
   def search
     keywords = params[:keyword].to_s.strip.split(/\s+/)
     
@@ -84,6 +93,11 @@ class Api::V1::BoardsController < ApplicationController
     end
     
     render json: boards, each_serializer: BoardSerializer, status: :ok
+  end
+
+  def is_user_bookmarked
+    is_bookmarked = @user.bookmarks.exists?(board_id: params[:id])
+    render json: { is_bookmarked: is_bookmarked }
   end
 
   private
