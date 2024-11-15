@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   before_action :set_user
-  before_action :authenticate_api_v1_user!, only: %i[create is_user_liked]
+  before_action :authenticate_api_v1_user!, only: %i[create is_user_liked destroy]
 
   def nearby_posts
     lat = params[:lat].to_f
@@ -23,11 +23,15 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    current_walk = current_api_v1_user.walks.find_by(finish_time: nil)
+    current_walk = @user.walks.find_by(finish_time: nil)
 
-    post = current_api_v1_user.posts.new(
-      post_params.merge(walk_id: current_walk&.id)
-    )
+    if current_walk
+      post = @user.posts.new(
+        post_params.merge(walk_id: current_walk&.id)
+      )
+    else
+      post = @user.posts.new(post_params)
+    end
 
     if post.save
       render json: { message: 'Post created successfully', post: post }, status: :created
@@ -39,6 +43,17 @@ class Api::V1::PostsController < ApplicationController
   def is_user_liked
     is_liked = @user.likes.exists?(post_id: params[:id])
     render json: { is_liked: is_liked }
+  end
+
+  def destroy
+    post = @user.posts.find(params[:id])
+
+    if post
+      post.destroy
+      render json: { message: "Post deleted successfully" }, status: :ok
+    else
+      render json: { error: "Post not found or not authorized to delete" }, status: :not_found
+    end
   end
 
   private

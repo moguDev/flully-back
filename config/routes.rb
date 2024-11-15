@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
       resources :checkpoints, only: [:create]
 
-      resources :posts, only: [:show, :create] do
+      resources :posts, only: [:show, :create, :destroy] do
         collection do
           get :nearby_posts
         end
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
       resources :post_comments, only: [:index, :create]
 
-      resources :boards, only: [:index, :show, :create, :update] do
+      resources :boards, only: [:index, :show, :create, :update, :destroy] do
         collection do
           get :nearby_boards
           get :search

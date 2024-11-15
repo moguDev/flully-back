@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_09_051300) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_15_084229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,7 +93,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_09_051300) do
 
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "walk_id", null: false
+    t.bigint "walk_id"
     t.string "image"
     t.text "body"
     t.float "lat"
