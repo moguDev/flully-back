@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   extend Devise::Models
+  after_create :create_default_user_setting
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -14,4 +15,18 @@ class User < ActiveRecord::Base
   has_many :boards, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :board_comments, dependent: :destroy
+  has_one :user_setting, dependent: :destroy
+
+  validates :name, length: { minimum:4, maximum:16 }
+  validates :name, uniqueness: { case_sensitive: false }
+  validates :nickname, length: { minimum:2, maximum:32 }
+  validates :introduction, length: { maximum: 128 }
+  validates :location, length: { maximum: 64 }
+  validates :twitter, length: { maximum: 128 }
+
+  private
+
+  def create_default_user_setting
+    create_user_setting(is_mail_public: false, is_location_public: false)
+  end
 end

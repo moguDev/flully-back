@@ -10,7 +10,18 @@ class Board < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :board_comments, dependent: :destroy
 
-  validates :breed, presence: true
+  validates :category, presence: true
+  validates :species, presence: true
+  validates :breed, presence: true, length: { maximum: 16 }
+  validates :icon, presence: true
+  validates :date, presence: true
+  validates :lat, presence: true
+  validates :lng, presence: true
+  validates :is_location_public, inclusion: { in: [true, false] }
+
+  validates :body, length: { maximum: 128 }
+  validates :feature, length: { maximum: 64 }
+
 
   # Geocoderによる逆ジオコーディング
   reverse_geocoded_by :lat, :lng

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
 
       get 'users/:name', to: 'users#show'
+      get 'myprofile', to: 'users#show_myprofile'
       get 'users/check_name', to: 'users#check_name'
 
       resources :checkpoints, only: [:create]

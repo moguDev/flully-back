@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_15_084229) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_16_010715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -124,6 +124,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_15_084229) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_settings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "is_mail_public"
+    t.boolean "is_location_public"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_settings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -175,5 +184,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_15_084229) do
   add_foreign_key "post_comments", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "posts", "walks"
+  add_foreign_key "user_settings", "users"
   add_foreign_key "walks", "users"
 end
