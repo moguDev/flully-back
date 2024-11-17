@@ -5,4 +5,6 @@ class Post < ApplicationRecord
   belongs_to :walk, optional: true
   has_many :likes, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+
+  validates :body, length: { maximum: 64 }
 end
