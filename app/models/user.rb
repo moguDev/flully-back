@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
   validates :introduction, length: { maximum: 128 }
   validates :location, length: { maximum: 64 }
   validates :twitter, length: { maximum: 128 }
-  validates :your_attribute, inclusion: { in: [true, false] }
 
   private
 
