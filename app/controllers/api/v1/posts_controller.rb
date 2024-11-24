@@ -2,14 +2,9 @@ class Api::V1::PostsController < ApplicationController
   before_action :set_user
   before_action :authenticate_api_v1_user!, only: %i[create is_user_liked destroy]
 
-  def nearby_posts
-    lat = params[:lat].to_f
-    lng = params[:lng].to_f
-    radius = 10
-
-    posts = Post.near([lat, lng], radius, units: :km).includes(:user)
-
-    render json: posts, each_serializer: PostSerializer, status: :ok
+  def index
+    posts = Post.all
+    render json: posts
   end
 
   def show

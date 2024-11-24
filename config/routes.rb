@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-        registrations: 'api/v1/auth/registrations'
+        registrations: 'api/v1/auth/registrations',
+        omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
       }
 
       resources :walks, only: %i[index show destroy] do
@@ -20,11 +21,7 @@ Rails.application.routes.draw do
 
       resources :checkpoints, only: [:create]
 
-      resources :posts, only: [:show, :create, :destroy] do
-        collection do
-          get :nearby_posts
-        end
-      end
+      resources :posts, only: [:index, :show, :create, :destroy]
 
       resources :post_comments, only: [:index, :create]
 
