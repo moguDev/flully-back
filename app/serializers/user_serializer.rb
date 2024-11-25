@@ -1,9 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :nickname, :introduction, :avatar_url, :email, :location, :twitter
-
-  def avatar_url
-    object.avatar.url if object.avatar.present?
-  end
+  attributes :id, :name, :nickname, :introduction, :avatar, :email, :location, :twitter
 
   def email
     is_mail_public = object.user_setting.is_mail_public
