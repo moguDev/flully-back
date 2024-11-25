@@ -1,13 +1,9 @@
 class UserDetailsSerializer < ActiveModel::Serializer
-  attributes :id, :name, :nickname, :introduction, :avatar_url, :email, :location, :twitter, :current_streak
+  attributes :id, :name, :nickname, :introduction, :avatar, :email, :location, :twitter, :current_streak
 
   has_many :boards, each_serializer: BoardSerializer
   has_many :posts, each_serializer: PostSerializer
   has_many :walks, each_serializer: WalkSerializer
-
-  def avatar_url
-    object.avatar.url if object.avatar.present?
-  end
 
   def current_streak
     today = Time.current.in_time_zone('Asia/Tokyo').to_date
