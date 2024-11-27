@@ -6,14 +6,6 @@ Rails.application.routes.draw do
         registrations: 'api/v1/auth/registrations',
       }
 
-      resources :walks, only: %i[index show destroy] do
-        get 'in_progress', on: :collection
-        collection do
-          post :start
-          post :finish
-        end
-      end
-
       get 'users/:name', to: 'users#show'
       get 'myprofile', to: 'users#show_myprofile'
       get 'users/check_name', to: 'users#check_name'
@@ -40,6 +32,8 @@ Rails.application.routes.draw do
       get "boards/:id/is_user_bookmarked", to: "boards#is_user_bookmarked"
 
       resources :board_comments, only: [:create, :index]
+
+      resources :follows, only: [:create, :destroy]
     end
   end
 end

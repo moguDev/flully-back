@@ -3,7 +3,6 @@ class UserDetailsSerializer < ActiveModel::Serializer
 
   has_many :boards, each_serializer: BoardSerializer
   has_many :posts, each_serializer: PostSerializer
-  has_many :walks, each_serializer: WalkSerializer
 
   def current_streak
     today = Time.current.in_time_zone('Asia/Tokyo').to_date

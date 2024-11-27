@@ -29,3 +29,5 @@ gem 'dotenv-rails'
 gem 'geocoder'
 
 gem 'active_model_serializers'
+
+gem 'letter_opener', group: :development
