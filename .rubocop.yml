@@ -1,0 +1,17 @@
+inherit_gem:
+  rubocop-rails:
+    - config/rails.yml
+
+AllCops:
+  TargetRubyVersion: 3.3.3
+  Exclude:
+    - "db/schema.rb"
+    - "bin/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+
+Metrics/BlockLength:
+  Max: 25
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
