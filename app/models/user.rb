@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
 
   include DeviseTokenAuth::Concerns::User
 
-  has_many :walks, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :likes, dependent: :destroy
