@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_28_102635) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_28_103942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,15 +61,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_102635) do
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_bookmarks_on_board_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
-  end
-
-  create_table "checkpoints", force: :cascade do |t|
-    t.bigint "walk_id", null: false
-    t.float "lat"
-    t.float "lng"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["walk_id"], name: "index_checkpoints_on_walk_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -167,27 +158,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_102635) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  create_table "walks", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "start_time"
-    t.datetime "finish_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_walks_on_user_id"
-  end
-
   add_foreign_key "board_comments", "boards"
   add_foreign_key "board_comments", "users"
   add_foreign_key "board_images", "boards"
   add_foreign_key "boards", "users"
   add_foreign_key "bookmarks", "boards"
   add_foreign_key "bookmarks", "users"
-  add_foreign_key "checkpoints", "walks"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "post_comments", "posts"
   add_foreign_key "post_comments", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "user_settings", "users"
-  add_foreign_key "walks", "users"
 end

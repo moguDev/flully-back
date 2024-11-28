@@ -18,16 +18,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    current_walk = @user.walks.find_by(finish_time: nil)
-
-    if current_walk
-      post = @user.posts.new(
-        post_params.merge(walk_id: current_walk&.id)
-      )
-    else
-      post = @user.posts.new(post_params)
-    end
-
+    post = @user.posts.new(post_params)
     if post.save
       render json: { message: 'Post created successfully', post: post }, status: :created
     else
