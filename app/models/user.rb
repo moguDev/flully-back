@@ -17,6 +17,11 @@ class User < ActiveRecord::Base
   has_many :board_comments, dependent: :destroy
   has_one :user_setting, dependent: :destroy
 
+  has_many :follows_as_follower, foreign_key: :following_user_id, class_name: 'Follow'
+  has_many :following_users, through: :follows_as_follower, source: :followed_user
+  has_many :follows_as_followed, foreign_key: :followed_user_id, class_name: 'Follow'
+  has_many :follower_users, through: :follows_as_followed, source: :following_user
+
   validates :name, length: { minimum:4, maximum:16 }
   validates :name, uniqueness: { case_sensitive: false }
   validates :nickname, length: { minimum:2, maximum:32 }
