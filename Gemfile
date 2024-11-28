@@ -31,3 +31,8 @@ gem 'geocoder'
 gem 'active_model_serializers'
 
 gem 'letter_opener', group: :development
+
+group :development do
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false # Rails専用ルールを適用する場合
+end
