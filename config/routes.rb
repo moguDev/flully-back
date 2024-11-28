@@ -33,7 +33,9 @@ Rails.application.routes.draw do
 
       resources :board_comments, only: [:create, :index]
 
-      resources :follows, only: [:create, :destroy]
+      resources :follows, only: [:create, :destroy] do
+        get :check_status, on: :collection
+      end
     end
   end
 end

@@ -3,7 +3,7 @@ class Api::V1::FollowsController < ApplicationController
   before_action :authenticate_api_v1_user!
 
   def create
-    followed_user = User.find(params[:followed_user_id])
+    followed_user = User.find_by(name: params[:name])
     if @user.following_users.exists?(followed_user.id)
       render json: { error: 'You are already following this user' }, status: :unprocessable_entity
     else
@@ -25,6 +25,12 @@ class Api::V1::FollowsController < ApplicationController
     else
       render json: { error: 'Follow not found' }, status: :not_found
     end
+  end
+
+  def check_status
+    followed_user = User.find_by(name: params[:name])
+    is_following = @user.following_users.exists?(followed_user.id)
+    render json: { is_following: is_following }, status: :ok
   end
 
   private
