@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_26_035902) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_28_102635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,7 +100,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_26_035902) do
 
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "walk_id"
     t.string "image"
     t.text "body"
     t.float "lat"
@@ -109,7 +108,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_26_035902) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
-    t.index ["walk_id"], name: "index_posts_on_walk_id"
   end
 
   create_table "thread_comment_image_contents", force: :cascade do |t|
@@ -190,7 +188,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_26_035902) do
   add_foreign_key "post_comments", "posts"
   add_foreign_key "post_comments", "users"
   add_foreign_key "posts", "users"
-  add_foreign_key "posts", "walks"
   add_foreign_key "user_settings", "users"
   add_foreign_key "walks", "users"
 end
