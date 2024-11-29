@@ -12,14 +12,10 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
   public
 
   def update
-    # user設定を取得
     user_setting_params = params.permit(:is_mail_public, :is_location_public)
 
-    # トランザクションで更新を安全に実行
     ActiveRecord::Base.transaction do
-      # ユーザー情報を更新
       if @resource.update(account_update_params.except(:is_mail_public, :is_location_public))
-        # user_setting の更新
         if user_setting_params.present?
           @resource.user_setting.update!(user_setting_params)
         end

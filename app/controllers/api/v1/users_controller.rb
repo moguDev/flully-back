@@ -27,10 +27,22 @@ class Api::V1::UsersController < ApplicationController
       render json: { is_unique: is_unique }
     end
   end
-end
 
-private
+  def followings
+    user = User.find_by(name: params[:name])
+    followings = user.following_users
+    render json: followings
+  end
 
-def set_user
-  @user = current_api_v1_user
+  def followers
+    user = User.find_by(name: params[:name])
+    followers = user.follower_users
+    render json: followers
+  end
+
+  private
+
+  def set_user
+    @user = current_api_v1_user
+  end
 end
