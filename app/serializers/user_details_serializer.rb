@@ -1,8 +1,12 @@
 class UserDetailsSerializer < ActiveModel::Serializer
-  attributes :id, :name, :nickname, :introduction, :avatar, :email, :location, :twitter, :following_count, :followers_count
+  attributes :id, :name, :nickname, :introduction, :avatar_url, :email, :location, :twitter, :following_count, :followers_count
 
   has_many :boards, each_serializer: BoardSerializer
   has_many :posts, each_serializer: PostSerializer
+
+  def avatar_url
+    object.avatar.url || nil
+  end
   
   def email
     is_mail_public = object.user_setting.is_mail_public

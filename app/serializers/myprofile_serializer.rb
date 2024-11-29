@@ -1,5 +1,9 @@
 class MyprofileSerializer < ActiveModel::Serializer
-  attributes :id, :name, :nickname, :introduction, :avatar, :email, :location, :twitter, :is_mail_public, :is_location_public
+  attributes :id, :name, :nickname, :introduction, :avatar_url, :email, :location, :twitter, :is_mail_public, :is_location_public
+
+  def avatar_url
+    object.avatar.url || nil
+  end
 
   def is_mail_public
     object.user_setting.is_mail_public

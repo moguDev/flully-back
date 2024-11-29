@@ -1,5 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :nickname, :introduction, :avatar, :email, :location, :twitter
+  attributes :id, :name, :nickname, :introduction, :avatar_url, :email, :location, :twitter, :following_count, :followers_count
+
+  def avatar_url
+    object.avatar.url || nil
+  end
 
   def email
     is_mail_public = object.user_setting.is_mail_public
@@ -17,5 +21,13 @@ class UserSerializer < ActiveModel::Serializer
     else
       "非公開"
     end
+  end
+
+  def following_count
+    object.following_users.count
+  end
+
+  def followers_count
+    object.follower_users.count
   end
 end

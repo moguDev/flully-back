@@ -4,11 +4,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations',
+        token_validations: 'api/v1/auth/token_validations'
       }
 
       get 'users/:name', to: 'users#show'
       get 'myprofile', to: 'users#show_myprofile'
       get 'users/check_name', to: 'users#check_name'
+      get 'users/:name/followings', to: "users#followings"
+      get 'users/:name/followers', to: "users#followers"
 
       resources :checkpoints, only: [:create]
 
