@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       resources :follows, only: [:create, :destroy] do
         get :check_status, on: :collection
       end
+
+      resources :timeline, only: [:index]
     end
   end
 end
