@@ -37,7 +37,7 @@ Rails.application.configure do
     address: 'smtp.mail.me.com',
     port: 587,
     domain: 'flully.jp',
-    user_name: 'no-reply@flully.jp',
+    user_name: ENV["SMTP_USER"],
     password: ENV["ICLOUD_APP_PASSWORD"],
     authentication: 'login',
     enable_starttls_auto: true
