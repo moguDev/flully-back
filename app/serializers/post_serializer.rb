@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :body, :lat, :lng, :is_anonymous, :image_url, :created_at, :user, :like_count
+  attributes :id, :body, :lat, :lng, :is_anonymous, :image_url, :formated_date, :created_at, :user, :like_count
 
   def image_url
     object.image.url if object.image.present?
@@ -15,7 +15,7 @@ class PostSerializer < ActiveModel::Serializer
     object.likes.count
   end
 
-  def created_at
+  def formated_date
     local_time = object.created_at.in_time_zone("Asia/Tokyo")
     
     if local_time.to_date == Date.today
