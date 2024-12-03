@@ -1,4 +1,4 @@
-class Devise::Mailer < Devise::BaseMailer
+class Devise::Mailer < ApplicationMailer
   def reset_password_instructions(record, token, opts={})
     @token = token
     @resource = record
