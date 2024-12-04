@@ -51,7 +51,7 @@ DeviseTokenAuth.setup do |config|
     :'token-type' => 'token-type'
   }
 
-  config.redirect_whitelist = ['https://flully.jp/reset_password/edit']
+  config.allow_other_host = true
 
   # Makes it possible to use custom uid column
   # config.other_uid = "foo"
