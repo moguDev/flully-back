@@ -42,7 +42,7 @@ Rails.application.configure do
     authentication: 'login',
     enable_starttls_auto: true
   }
-  config.action_mailer.default_url_options = { host: 'flully.jp', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: 'flully-back.onrender.com', protocol: 'https' }
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
