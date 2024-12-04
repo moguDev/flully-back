@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       resources :notifications, only: [:index] do
         collection do
           get :unread
+          post :checked
         end
       end
     end

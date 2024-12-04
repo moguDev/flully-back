@@ -4,7 +4,7 @@ class Api::V1::BoardCommentsController < ApplicationController
 
   def index
     board_id = params[:board_id]
-    comments = BoardComment.where(board_id: board_id).order(created_at: :asc)
+    comments = BoardComment.where(board_id: board_id).order(id: :asc)
 
     render json: comments, each_serializer: BoardCommentSerializer, status: :ok
   end
