@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations',
-        token_validations: 'api/v1/auth/token_validations'
+        token_validations: 'api/v1/auth/token_validations',
+        passwords: 'api/v1/auth/passwords'
       }
 
       get 'users/:name', to: 'users#show'
