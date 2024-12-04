@@ -42,6 +42,12 @@ Rails.application.routes.draw do
       end
 
       resources :timeline, only: [:index]
+
+      resources :notifications, only: [:index] do
+        collection do
+          get :unread
+        end
+      end
     end
   end
 end
