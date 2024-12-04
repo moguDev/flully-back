@@ -32,7 +32,7 @@ DeviseTokenAuth.setup do |config|
   # config.omniauth_prefix = "/omniauth"
 
   # By default sending current password is not needed for the password update.
-  # Uncomment to enforce current_password param to be checked before all
+  # Uncomment to enforce current_password param to be checked befowhire all
   # attribute updates. Set it to :password if you want it to be checked only if
   # password is updated.
   # config.check_current_password_before_update = :attributes
@@ -51,6 +51,8 @@ DeviseTokenAuth.setup do |config|
     :'token-type' => 'token-type'
   }
 
+  config.redirect_whitelist = ['https://flully.jp']
+  
   # Makes it possible to use custom uid column
   # config.other_uid = "foo"
 
