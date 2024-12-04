@@ -129,9 +129,6 @@ class Api::V1::Auth::PasswordsController < DeviseTokenAuth::PasswordsController
     }
   end
 
-  # リダイレクト時のオプション設定
-  # フロントとバックを完全に分離している場合、ドメインが異なるので
-  # 別のドメインにリダイレクトさせるために必要
   def redirect_options
     {
       allow_other_host: true
