@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :bookmarks, dependent: :destroy
   has_many :board_comments, dependent: :destroy
   has_one :user_setting, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   has_many :follows_as_follower, foreign_key: :following_user_id, class_name: 'Follow'
   has_many :following_users, through: :follows_as_follower, source: :followed_user
