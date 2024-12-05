@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        # sessions: 'api/v1/auth/sessions',
         registrations: 'api/v1/auth/registrations',
         token_validations: 'api/v1/auth/token_validations',
-        passwords: 'api/v1/auth/passwords'
+        passwords: 'api/v1/auth/passwords',
+        omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
       }
 
       get 'users/:name', to: 'users#show'

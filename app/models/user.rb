@@ -1,12 +1,11 @@
 class User < ActiveRecord::Base
+  include DeviseTokenAuth::Concerns::User
   mount_uploader :avatar, AvatarUploader
   extend Devise::Models
   after_create :create_default_user_setting
   
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-
-  include DeviseTokenAuth::Concerns::User
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+  devise :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
@@ -22,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :follows_as_followed, foreign_key: :followed_user_id, class_name: 'Follow'
   has_many :follower_users, through: :follows_as_followed, source: :following_user
 
-  validates :name, length: { minimum:4, maximum:16 }
+  validates :name, length: { minimum:4, maximum:32 }
   validates :name, uniqueness: { case_sensitive: false }
   validates :nickname, length: { minimum:2, maximum:32 }
   validates :introduction, length: { maximum: 128 }
