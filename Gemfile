@@ -17,8 +17,8 @@ gem "rack-cors", "~> 2.0.1"
 
 gem 'devise'
 gem 'devise_token_auth'
-# gem 'omniauth-rails_csrf_protection'
-# gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 
 gem 'carrierwave'
 gem 'fog-aws'

@@ -9,6 +9,15 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {
+    scope: 'profile email',
+    provider_ignores_state: Rails.env.development?,
+    failure_redirect_url: '/api/v1/auth/failure'
+  }
+
+  config.warden do |manager|
+    manager.failure_app = Devise::FailureApp # failure_appが設定されているか確認
+  end
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
