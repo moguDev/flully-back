@@ -30,7 +30,7 @@ class Api::V1::Auth::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCall
       uid: @resource.uid,
     }.to_query
 
-    redirect_to "#{redirect_url}?#{redirect_params}", status: 307
+    redirect_to "#{redirect_url}?#{redirect_params}", status: 307, allow_other_host: true
   end
 
   private
