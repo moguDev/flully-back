@@ -45,6 +45,7 @@ class Api::V1::BoardsController < ApplicationController
   def update
     if @board.user_id == @user.id
       board_params_with_int = board_params.merge(
+        status: params[:status].to_i,
         category: params[:category].to_i,
         species: params[:species].to_i
       )
@@ -111,6 +112,6 @@ class Api::V1::BoardsController < ApplicationController
   end
 
   def board_params
-    params.permit(:category, :species, :name, :icon, :breed, :age, :date, :lat, :lng, :is_location_public, :body, :feature, :images)
+    params.permit(:status, :category, :species, :name, :icon, :breed, :age, :date, :lat, :lng, :is_location_public, :body, :feature, :images)
   end
 end
