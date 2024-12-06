@@ -49,9 +49,9 @@ class Board < ApplicationRecord
     when 'unresolved'
       '未解決'
     when 'resolved'
-      '解決'
+      '解決済み'
     when 'closed'
-      '終了'
+      '掲載終了'
     else
       '未設定'
     end
