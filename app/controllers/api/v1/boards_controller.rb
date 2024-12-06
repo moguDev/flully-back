@@ -24,6 +24,7 @@ class Api::V1::BoardsController < ApplicationController
 
   def create
     board_params_with_int = board_params.merge(
+      status: params[:status].to_i,
       category: params[:category].to_i,
       species: params[:species].to_i
     )
