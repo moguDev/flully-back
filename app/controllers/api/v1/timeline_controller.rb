@@ -1,6 +1,6 @@
 class Api::V1::TimelineController < ApplicationController
   def index
-    posts = Post.includes(:user).order(created_at: :asc).limit(100)
+    posts = Post.includes(:user).order(created_at: :desc).limit(100)
                 .map do |post|
                   {
                     type: "post",
@@ -8,7 +8,7 @@ class Api::V1::TimelineController < ApplicationController
                   }
                 end
 
-    boards = Board.includes(:user).order(created_at: :asc).limit(100)
+    boards = Board.includes(:user).order(created_at: :desc).limit(100)
                   .map do |board|
                     {
                       type: "board",
@@ -17,7 +17,7 @@ class Api::V1::TimelineController < ApplicationController
                   end
 
     # 結合し、created_atでソートして100件取得
-    timeline = (posts + boards).sort_by { |item| item[:content]["created_at"] }.reverse.take(100)
+    timeline = (posts + boards).sort_by { |item| item[:content]["created_at"] }.take(100)
 
     render json: timeline
   end
