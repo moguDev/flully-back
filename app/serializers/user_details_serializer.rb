@@ -1,5 +1,5 @@
 class UserDetailsSerializer < ActiveModel::Serializer
-  attributes :id, :name, :nickname, :introduction, :avatar_url, :email, :location, :twitter, :following_count, :followers_count
+  attributes :id, :name, :nickname, :introduction, :avatar_url, :email, :location, :twitter, :following_count, :followers_count, :explore_points, :level
 
   has_many :boards, each_serializer: BoardSerializer
   has_many :posts, each_serializer: PostSerializer
@@ -32,5 +32,26 @@ class UserDetailsSerializer < ActiveModel::Serializer
 
   def followers_count
     object.follower_users.count
+  end
+
+  def explore_points
+    points = 0
+    object.posts.each do |post|
+      points += 10 + post.likes.length * 2
+    end
+    return points
+  end
+
+  def level
+    base_points = 50
+    growth_rate = 0.15
+    points = explore_points
+
+    level = 1
+    while points >= base_points * Math.exp(growth_rate * (level - 1))
+      points -= base_points * Math.exp(growth_rate * (level - 1))
+      level += 1
+    end
+    return level
   end
 end
